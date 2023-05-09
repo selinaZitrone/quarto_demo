@@ -1,0 +1,174 @@
+---
+title: "The penguins"
+subtitle: "The penguins are really cool"
+author: "Selina Baldauf"
+date: "`r Sys.Date()`"
+format: 
+  revealjs:
+    incremental: true
+    transition: fade
+    theme: moon
+    show-slide-number: all
+    slide-number: true
+    chalkboard:
+      theme: whiteboard
+      boardmarker-width: 4
+      buttons: true
+execute: 
+  eval: true
+  echo: false
+  warning: false
+---
+
+## Introduction
+
+```{r}
+#| label: setup
+library(palmerpenguins)
+library(tidyverse)
+```
+
+::: {.notes}
+I have something very important to say for this penguins
+I should not forget it
+:::
+
+
+There are three main penguin species in Antarctica (*Chinstrap*, *Gentoo*, *Adelie*).
+
+```{r}
+#| label: illustration
+#| fig-align: center
+#| out-width: "60%"
+knitr::include_graphics("images/lter_penguins.png")
+```
+
+## Introduction
+
+In this paper we want to answer the following questions
+
+::: {.incremental}
+
+- How bill depth depends on bill length?
+- Which penguin species has the highest body mass?
+
+:::
+
+## The data
+
+- The data was collected on islands in Antarctica
+- The paper was published by Gorman et al (2014)^[paper available [here](https://doi.org/10.1371/journal.pone.0090081).]
+
+# Results
+
+## Some numbers
+
+```{r}
+#| label: mean-penguin-species
+#| include: false
+
+# calculate the mean body mass of the penguin species
+adelie_mean <- penguins %>% filter(species == "Adelie") %>% pull(body_mass_g) %>% mean(na.rm = TRUE) 
+chinstrap_mean <- penguins %>% filter(species == "Chinstrap") %>% pull(body_mass_g) %>% mean(na.rm = TRUE) 
+gentoo_mean <- penguins %>% filter(species == "Gentoo") %>% pull(body_mass_g) %>% mean(na.rm = TRUE) 
+```
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+The mean weight of
+
+- all penguins: `r round(mean(penguins$body_mass_g, na.rm = TRUE))` g.
+- *Gentoo* penguins: `r round(gentoo_mean,0)` g
+- *Adelie* penguins of `r round(adelie_mean, 0)` g
+- *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g
+
+:::
+
+::: {.column width="60%"}
+
+```{r}
+knitr::include_graphics("images/lter_penguins.png")
+```
+
+:::
+
+::::
+
+## A histogram of our penguins
+
+::: {.panel-tabset}
+
+### The plot
+
+```{r}
+#| label: hist
+#| fig-align: center
+#| fig-width: 4
+#| fig-height: 3
+#| echo: false
+
+ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram(alpha = 0.6) +
+   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_minimal()
+```
+
+### The code
+
+```{r}
+#| label: hist-code
+#| echo: true
+#| eval: false
+
+ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+  geom_histogram(alpha = 0.6) +
+   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  theme_minimal()
+```
+
+:::
+
+## A scatterplot
+
+```{r}
+#| label: scatter
+#| echo: true
+#| output-location: column
+
+ggplot(
+  data = penguins,
+  aes(
+    x = bill_length_mm,
+    y = bill_depth_mm,
+    color = species,
+    shape = species
+  )
+) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_color_manual(
+    values = c(
+      "darkorange", 
+      "purple", 
+      "cyan4")) +
+  theme_bw()
+```
+
+## Some very interesting penguin code
+
+```{r}
+#| label: summary
+#| echo: true
+#| code-line-numbers: "2-3"
+penguins %>% 
+  filter(!(is.na(sex))) %>% 
+  group_by(species, sex) %>% 
+  summarize(
+    bill_length = mean(bill_length_mm, na.rm = TRUE),
+    bill_depth = mean(bill_depth_mm, na.rm = TRUE),
+    flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    body_mass = mean(body_mass_g, na.rm = TRUE)
+  )
+```
