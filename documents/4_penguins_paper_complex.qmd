@@ -16,8 +16,9 @@ format:
   docx: default
 bibliography: references.bib
 execute: 
-  echo: false
+  echo: true
   warning: false
+  message: false
 ---
 
 ```{r}
@@ -83,15 +84,16 @@ gentoo_mean <- penguins %>% filter(species == "Gentoo") %>% pull(body_mass_g) %>
 
 The mean weight of all penguin species is `r mean(penguins$body_mass_g, na.rm = TRUE)` g. *Gentoo* penguins have an average weight of `r round(gentoo_mean,0)` g, *Adelie* penguins of `r round(adelie_mean, 0)` g and *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g.
 
-@fig-hist below shows that *Gentoo* penguins have the highest body mass.
+@fig-histogram below shows that *Gentoo* penguins have the highest body mass.
 
 ```{r}
-#| label: fig-hist
+#| label: fig-histogram
 #| fig-cap: Histogram of weight of the three penguin species.
 #| fig-align: center
 #| fig-width: 4
 #| fig-height: 3
-#| echo: true
+#| warning: false
+#| message: false
 
 ggplot(penguins, aes(x = body_mass_g, fill = species)) +
   geom_histogram(alpha = 0.6) +
@@ -123,7 +125,7 @@ ggplot(
   geom_point(size = 3, alpha = 0.8) +
   geom_smooth(method = "lm", se = FALSE) +
   scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
-  theme_bw()+
+  theme_bw() +
   labs(
     x = "Bill length (mm)",
     y = "Bill depth (mm)",

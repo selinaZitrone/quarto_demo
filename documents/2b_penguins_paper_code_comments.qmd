@@ -2,24 +2,8 @@
 title: "The penguins of Antarctica"
 author: "Selina Baldauf"
 date: "`r Sys.Date()`"
-format: 
-  html: 
-    number-sections: true
-    toc: true
-    toc-location: left
-    code-fold: true
-    df-print: kable
-    
-  pdf: 
-    toc: true
-    number-sections: true
-    df-print: kable
-  docx: default
+format: html
 bibliography: references.bib
-execute: 
-  echo: true
-  message: false
-  warning: false
 ---
 
 ```{r}
@@ -73,6 +57,8 @@ The figure below shows that *Gentoo* penguins have the highest body mass.
 #| fig-align: center
 #| fig-width: 4
 #| fig-height: 3
+#| warning: false
+#| message: false
 
 ggplot(penguins, aes(x = body_mass_g, fill = species)) +
   geom_histogram(alpha = 0.6) +
@@ -88,7 +74,8 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 In general, it looks like the body characteristics differ between the sexes but also between the penguin species, as the table below illustrates:
 
 ```{r}
-#| label: penguin-table
+#| label: tbl-penguin
+#| message: false
 
 penguins %>%
   filter(!(is.na(sex))) %>%

@@ -7,8 +7,6 @@ bibliography: references.bib
 ---
 
 ```{r}
-#| label: setup
-#| include: false
 library(tidyverse)
 library(palmerpenguins)
 ```
@@ -52,13 +50,6 @@ The mean weight of all penguin species is `r mean(penguins$body_mass_g, na.rm = 
 The figure below shows that *Gentoo* penguins have the highest body mass.
 
 ```{r}
-#| label: fig-histogram
-#| fig-cap: Histogram of weight of the three penguin species.
-#| fig-align: center
-#| fig-width: 4
-#| fig-height: 3
-#| echo: true
-
 ggplot(penguins, aes(x = body_mass_g, fill = species)) +
   geom_histogram(alpha = 0.6) +
   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
@@ -73,9 +64,6 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 In general, it looks like the body characteristics differ between the sexes but also between the penguin species, as the table below illustrates:
 
 ```{r}
-#| label: penguin-table
-#| echo: true
-
 penguins %>%
   filter(!(is.na(sex))) %>%
   group_by(species, sex) %>%

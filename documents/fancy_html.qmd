@@ -1,5 +1,5 @@
 ---
-title: "Some Penguin Summary Tables"
+title: "Some more HTML features"
 author: "Selina Baldauf"
 date: "`r Sys.Date()`"
 format: 
@@ -7,11 +7,11 @@ format:
     number-sections: true
     toc: true
     toc-location: left
-    code-fold: true
     df-print: kable
 execute: 
   echo: true
   warning: false
+  message: false
 ---
 
 First load the packages needed (Install first with `install.packages` if needed):
@@ -29,9 +29,9 @@ First just create a summary table and save it in a variable:
 
 ```{r}
 #| label: penguin-summary
-summary_peng <- penguins %>% 
-  filter(!(is.na(sex))) %>% 
-  group_by(species, sex) %>% 
+summary_peng <- penguins %>%
+  filter(!(is.na(sex))) %>%
+  group_by(species, sex) %>%
   summarize(
     bill_length = mean(bill_length_mm, na.rm = TRUE),
     bill_depth = mean(bill_depth_mm, na.rm = TRUE),
@@ -54,10 +54,14 @@ To make the table printing look better, we can explicitly call the `kable` funct
 ```{r}
 #| label: tbl-summary-kable
 #| tbl-cap: A nicer summary table with the `kable` function
-summary_peng %>% 
+summary_peng %>%
   kable(
     digits = 1,
-    col.names = c("Species", "Sex", "Bill length", "Bill depth", "Flipper length", "Body mass"),
+    col.names = c(
+      "Species", "Sex",
+      "Bill length", "Bill depth",
+      "Flipper length", "Body mass"
+    ),
     caption = "Mean penguin variables with `kable` and `kableExtra`",
     align = "c",
     booktabs = TRUE
@@ -69,10 +73,14 @@ To add some more styling, you can add `kable_styling` from the `kableExtra` pack
 ```{r}
 #| label: tbl-styling
 #| tbl-cap: Adding some kable styling
-summary_peng %>% 
+summary_peng %>%
   kable(
     digits = 1,
-    col.names = c("Species", "Sex", "Bill length", "Bill depth", "Flipper length", "Body mass"),
+    col.names = c(
+      "Species", "Sex",
+      "Bill length", "Bill depth",
+      "Flipper length", "Body mass"
+    ),
     caption = "Mean penguin variables with `kable` and `kableExtra`",
     align = "c",
     booktabs = TRUE
@@ -91,12 +99,15 @@ And if you really want to exaggerate, you can also pack rows and columns (also f
 #| label: tbl-packed
 #| tbl-cap: A summary table with packed rows
 
-summary_peng %>% 
+summary_peng %>%
   arrange(sex) %>%
   select(-sex) %>%
   kable(
     digits = 1,
-    col.names = c("Species", "Bill length", "Bill depth", "Flipper length", "Body mass"),
+    col.names = c(
+      "Species", "Bill length",
+      "Bill depth", "Flipper length", "Body mass"
+    ),
     caption = "Mean penguin variables with `kable` and `kableExtra` and packed rows",
     align = "c",
     booktabs = TRUE
@@ -118,9 +129,15 @@ You can do even more cool things like coloring cells according to value, etc. To
 HTML output allows you, to have interactive plots in your documents. Including an interactive plot is easier that you might think. Consider e.g. the following ggplot called `penguin_plot`:
 
 ```{r}
-penguin_plot <- ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+penguin_plot <- ggplot(
+  penguins,
+  aes(x = body_mass_g, fill = species)
+) +
   geom_histogram(alpha = 0.6) +
-  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  scale_fill_manual(
+    values =
+      c("darkorange", "purple", "cyan4")
+  ) +
   theme_minimal() +
   labs(
     x = "Body mass (g)",
@@ -135,4 +152,3 @@ To make this plot interactive, you only need to wrap it in the `ggplotly` functi
 # install.packages("plotly")
 plotly::ggplotly(penguin_plot)
 ```
-
