@@ -9,13 +9,11 @@ format:
     toc-location: left
     code-fold: true
     df-print: kable
-    
   pdf: 
     toc: true
     number-sections: true
     df-print: kable
   docx: default
-bibliography: references.bib
 execute: 
   echo: true
   message: false
@@ -42,9 +40,7 @@ In this paper we want to answer the following questions
 
 ## The data
 
-The data was collected on islands in Antarctica and published by @gorman2014. You can find the original paper with the title "Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus *Pygoscelis*)" in PLoS ONE[^1]
-
-[^1]: paper available [here](https://doi.org/10.1371/journal.pone.0090081).
+The data was collected on islands in Antarctica and published by Gorman et al. (2014). You can find the original paper with the title "Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus *Pygoscelis*)" in PLoS ONE.
 
 The data is published via the `palmerpenguins` R package which you can find [on this website](https://allisonhorst.github.io/palmerpenguins/).
 
@@ -59,11 +55,11 @@ The data is published via the `palmerpenguins` R package which you can find [on 
 
 ## The analysis
 
-We did some plots, calculated some summary statistics and a linear model of the form $y = ax + b + \epsilon$
+We did some plots, calculated some summary statistics and a linear model.
 
 # Results
 
-The mean weight of all penguin species is `r mean(penguins$body_mass_g, na.rm = TRUE)` g.
+The mean weight of all penguin species is `r round(mean(penguins$body_mass_g, na.rm = TRUE), 1)` g.
 
 The figure below shows that *Gentoo* penguins have the highest body mass.
 
@@ -88,7 +84,8 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 In general, it looks like the body characteristics differ between the sexes but also between the penguin species, as the table below illustrates:
 
 ```{r}
-#| label: penguin-table
+#| label: tbl-penguin
+#| tbl-cap: A table with mean body measures of penguins
 
 penguins %>%
   filter(!(is.na(sex))) %>%

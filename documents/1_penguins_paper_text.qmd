@@ -18,11 +18,9 @@ In this paper we want to answer the following questions
 
 ## The data
 
-The data was collected on islands in Antarctica and published by Gorman et al. (2014). You can find the original paper with the title "Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus *Pygoscelis*)" in PLoS ONE[^1]
+The data was collected on islands in Antarctica and published by Gorman et al. (2014). You can find the original paper with the title "Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus *Pygoscelis*)" in PLoS ONE.
 
-[^1]: paper available [here](https://doi.org/10.1371/journal.pone.0090081).
-
-The data is published via the `palmerpenguins` R package which you can find [on this website](https://allisonhorst.github.io/palmerpenguins/).
+The data is published via the palmerpenguins R package which you can find [on this website](https://allisonhorst.github.io/palmerpenguins/).
 
 **The data contains (among others) the following measurements:**
 
@@ -35,6 +33,8 @@ The data is published via the `palmerpenguins` R package which you can find [on 
 
 ## The analysis
 
-We did some plots, calculated some summary statistics and a linear model of the form $y = ax + b + \epsilon$
+We did some plots, calculated some summary statistics and a linear model.
 
 # Results
+
+# References
