@@ -2,7 +2,6 @@
 #| label: setup
 #| include: false
 library(tidyverse)
-library(palmerpenguins)
 ```
 
 # Introduction
@@ -37,9 +36,9 @@ We did some plots, calculated some summary statistics and a linear model.
 
 # Results
 
-The mean weight of all penguin species is `r round(mean(penguins$body_mass_g, na.rm = TRUE), 1)` g.
+The mean weight of all penguin species is `r round(mean(penguins$body_mass, na.rm = TRUE), 1)` g.
 
-The figure below shows that *Gentoo* penguins have the highest body mass.
+@fig-histogram below shows that *Gentoo* penguins have the highest body mass.
 
 ```{r}
 #| label: fig-histogram
@@ -50,30 +49,34 @@ The figure below shows that *Gentoo* penguins have the highest body mass.
 #| warning: false
 #| message: false
 
-ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+ggplot(penguins, aes(x = body_mass, fill = species)) +
   geom_histogram(alpha = 0.6) +
   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
   theme_minimal() +
   labs(
     x = "Body mass (g)",
     y = "Count",
-    color = "Species"
+    fill = "Species"
   )
 ```
 
-In general, it looks like the body characteristics differ between the sexes but also between the penguin species, as the table below illustrates:
+In general, it looks like the body characteristics differ between the sexes but also between the penguin species, as @tbl-penguin below illustrates:
 
 ```{r}
-#| label: tabel-penguin
+#| label: tbl-penguin
+#| tbl-cap: Mean body characteristics of penguins
 #| message: false
+#| code-fold: true
 
-penguins %>%
-  filter(!(is.na(sex))) %>%
-  group_by(species, sex) %>%
+penguins |>
+  filter(!(is.na(sex))) |>
   summarize(
-    bill_length = mean(bill_length_mm, na.rm = TRUE),
-    bill_depth = mean(bill_depth_mm, na.rm = TRUE),
-    flipper_length = mean(flipper_length_mm, na.rm = TRUE),
-    body_mass = mean(body_mass_g, na.rm = TRUE)
+    bill_length = mean(bill_len, na.rm = TRUE),
+    bill_depth = mean(bill_dep, na.rm = TRUE),
+    flipper_length = mean(flipper_len, na.rm = TRUE),
+    body_mass = mean(body_mass, na.rm = TRUE),
+    .by = c(species, sex)
   )
 ```
+
+# References
