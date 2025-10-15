@@ -99,4 +99,6 @@ They have really good tutorials for all combinations of programming language, ID
 
 - [Quarto Documentation](https://quarto.org/docs/guide/)
 - [Quarto Gallery](https://quarto.org/docs/gallery/) - Example documents and presentations
+- [Curated List of Quarto resources](https://github.com/mcanouil/awesome-quarto#featured-new-releases)
 - [Quarto Tips & Tricks](https://mine-cetinkaya-rundel.github.io/quarto-tip-a-day/) - Daily quarto tips
+
