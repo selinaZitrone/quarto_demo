@@ -2,6 +2,8 @@
 
 This project contains Quarto examples used in [the lecture](https://selinazitrone.github.io/tools_and_tips/sessions/13_quarto-2.html).
 
+If you use R Studio, make sure to open the entire project by double clicking on the `quarto_demo.Rproj` file.
+
 ---
 
 ## 🛠️ Installation Requirements
