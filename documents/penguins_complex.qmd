@@ -90,7 +90,7 @@ gentoo_mean <- penguins |>
   mean(na.rm = TRUE)
 ```
 
-The mean weight of all penguin species is `r mean(penguins$body_mass_g, na.rm = TRUE)` g. *Gentoo* penguins have an average weight of `r round(gentoo_mean,0)` g, *Adelie* penguins of `r round(adelie_mean, 0)` g and *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g.
+The mean weight of all penguin species is `r mean(penguins$body_mass, na.rm = TRUE)` g. *Gentoo* penguins have an average weight of `r round(gentoo_mean,0)` g, *Adelie* penguins of `r round(adelie_mean, 0)` g and *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g.
 
 @fig-histogram below shows that *Gentoo* penguins have the highest body mass.
 
