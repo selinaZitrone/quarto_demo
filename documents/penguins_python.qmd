@@ -1,0 +1,101 @@
+---
+title: "Penguin Analysis in Python"
+subtitle: "An analysis made with Python"
+author: "Selina Baldauf"
+date: today
+format: html
+---
+
+```{python}
+# | label: setup
+# | include: false
+import pandas as pd
+from plotnine import *
+from plotnine.data import penguins
+```
+
+# Introduction
+
+There are three main penguin species in Antarctica (*Chinstrap*, *Gentoo*, *Adelie*).
+
+In this paper we want to answer the following questions
+
+1.  How bill depth depends on bill length?
+2.  Which penguin species has the highest body mass?
+
+# Methods
+
+## The data
+
+The data was collected on islands in Antarctica and published by Gorman et al. (2014). You can find the original paper with the title "Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus *Pygoscelis*)" in PLoS ONE.
+
+The data is published via the `palmerpenguins` R package but is also available in the `plotnine` Python package.
+
+**The data contains (among others) the following measurements:**
+
+-   bill length
+-   bill depth
+-   body mass
+-   sex
+    -   male
+    -   female
+
+## The analysis
+
+We did some plots, calculated some summary statistics and a linear model.
+
+# Results
+
+The mean weight of all penguin species is `{python} round(penguins['body_mass_g'].mean(), 1)` g.
+
+@fig-histogram below shows that *Gentoo* penguins have the highest body mass.
+
+```{python}
+# | label: fig-histogram
+# | fig-cap: Histogram of weight of the three penguin species.
+# | fig-align: center
+# | fig-width: 6
+# | fig-height: 4
+# | warning: false
+
+(
+    ggplot(penguins, aes(x="body_mass_g", fill="species"))
+    + geom_histogram(alpha=0.6)
+    + scale_fill_manual(values=["#FF8C00", "#800080", "#008B8B"])
+    + theme_minimal()
+    + labs(x="Body mass (g)", y="Count", fill="Species")
+)
+```
+
+In general, it looks like the body characteristics differ between the sexes but also between the penguin species, as @tbl-penguin below illustrates:
+
+```{python}
+# | label: tbl-penguin
+# | tbl-cap: Mean body characteristics of penguins
+# | echo: false
+
+# Filter out rows with missing sex values
+filtered_penguins = penguins.dropna(subset=["sex"])
+
+# Group by species and sex and calculate mean values
+summary_table = (
+    filtered_penguins.groupby(["species", "sex"])
+    .agg(
+        {
+            "bill_length_mm": "mean",
+            "bill_depth_mm": "mean",
+            "flipper_length_mm": "mean",
+            "body_mass_g": "mean",
+        }
+    )
+    .reset_index()
+)
+
+# Round values for display
+for col in ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]:
+    summary_table[col] = summary_table[col].round(1)
+
+summary_table
+```
+
+# References
