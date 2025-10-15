@@ -4,3 +4,12 @@
 .httr-oauth
 .DS_Store
 .quarto/
+
+# Ignore all rendered documents
+*.html
+*.pdf
+*.docx
+
+# Ignore all Quarto cache files
+*_files/
+*_cache/

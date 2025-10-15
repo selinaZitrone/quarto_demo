@@ -2,7 +2,7 @@
 title: "The penguins"
 subtitle: "The penguins are really cool"
 author: "Selina Baldauf"
-date: "`r Sys.Date()`"
+date: today
 format: 
   revealjs: default
   pptx: default
@@ -57,9 +57,18 @@ In this paper we want to answer the following questions
 #| include: false
 
 # calculate the mean body mass of the penguin species
-adelie_mean <- penguins %>% filter(species == "Adelie") %>% pull(body_mass_g) %>% mean(na.rm = TRUE) 
-chinstrap_mean <- penguins %>% filter(species == "Chinstrap") %>% pull(body_mass_g) %>% mean(na.rm = TRUE) 
-gentoo_mean <- penguins %>% filter(species == "Gentoo") %>% pull(body_mass_g) %>% mean(na.rm = TRUE) 
+adelie_mean <- penguins %>%
+  filter(species == "Adelie") %>%
+  pull(body_mass_g) %>%
+  mean(na.rm = TRUE)
+chinstrap_mean <- penguins %>%
+  filter(species == "Chinstrap") %>%
+  pull(body_mass_g) %>%
+  mean(na.rm = TRUE)
+gentoo_mean <- penguins %>%
+  filter(species == "Gentoo") %>%
+  pull(body_mass_g) %>%
+  mean(na.rm = TRUE)
 ```
 
 :::: {.columns}
@@ -96,6 +105,6 @@ knitr::include_graphics("images/lter_penguins.png")
 
 ggplot(penguins, aes(x = body_mass_g, fill = species)) +
   geom_histogram(alpha = 0.6) +
-   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
   theme_minimal()
 ```

@@ -1,0 +1,100 @@
+---
+title: "Penguin Species Report: `r params$species`"
+author: "Selina Baldauf"
+date: today
+format: pdf
+execute:
+  message: false
+  warnings: false
+  echo: false
+params:
+  species: "Adelie"  # Default species
+  min_weight: 3000   # Default minimum weight in grams
+  max_weight: 6000   # Default maximum weight in grams
+  show_raw_data: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+```
+
+This report analyzes data for *`r params$species`* penguins with body mass between `r params$min_weight`g and `r params$max_weight`g.
+
+```{r}
+#| label: filter-data
+#| echo: false
+filtered_penguins <- penguins %>%
+  filter(
+    species == params$species,
+    body_mass >= params$min_weight,
+    body_mass <= params$max_weight
+  )
+```
+
+## Summary Statistics
+
+Number of penguins matching criteria: `r nrow(filtered_penguins)`
+
+```{r}
+#| label: summary-stats
+#| tbl-cap: Summary statistics, all body measurements are mean values
+filtered_penguins |>
+  summarize(
+    count = n(),
+    bill_length = mean(bill_len, na.rm = TRUE),
+    bill_depth = mean(bill_dep, na.rm = TRUE),
+    flipper_length = mean(flipper_len, na.rm = TRUE),
+    body_mass = mean(body_mass, na.rm = TRUE),
+    .by = c(sex, island)
+  ) |>
+  mutate(
+    across(c(bill_length, bill_depth, flipper_length, body_mass), ~ round(., 2))
+  ) |>
+  # print as a nice table with good column names
+  knitr::kable(
+    col.names = c(
+      "Sex",
+      "Island",
+      "Count",
+      "Bill Length",
+      "Bill Depth",
+      "Flipper Length",
+      "Body Mass"
+    )
+  )
+```
+
+## Visualization
+
+```{r}
+#| label: visualization
+
+ggplot(
+  filtered_penguins,
+  aes(x = bill_len, y = bill_dep, color = sex)
+) +
+  geom_point(size = 3, alpha = 0.8) +
+  labs(
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    title = paste("Bill Measurements for", params$species, "Penguins"),
+    subtitle = paste(
+      "Body mass between",
+      params$min_weight,
+      "and",
+      params$max_weight,
+      "grams"
+    )
+  ) +
+  theme_minimal()
+```
+
+```{r}
+#| label: raw-data
+#| echo: false
+#| eval: !expr params$show_raw_data
+
+knitr::kable(filtered_penguins, caption = "Raw data for filtered penguins")
+```

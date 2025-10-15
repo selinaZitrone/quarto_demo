@@ -1,7 +1,7 @@
 ---
 title: "Some more HTML features"
 author: "Selina Baldauf"
-date: "`r Sys.Date()`"
+date: today
 format: 
   html: 
     number-sections: true
@@ -58,9 +58,12 @@ summary_peng %>%
   kable(
     digits = 1,
     col.names = c(
-      "Species", "Sex",
-      "Bill length", "Bill depth",
-      "Flipper length", "Body mass"
+      "Species",
+      "Sex",
+      "Bill length",
+      "Bill depth",
+      "Flipper length",
+      "Body mass"
     ),
     caption = "Mean penguin variables with `kable` and `kableExtra`",
     align = "c",
@@ -77,9 +80,12 @@ summary_peng %>%
   kable(
     digits = 1,
     col.names = c(
-      "Species", "Sex",
-      "Bill length", "Bill depth",
-      "Flipper length", "Body mass"
+      "Species",
+      "Sex",
+      "Bill length",
+      "Bill depth",
+      "Flipper length",
+      "Body mass"
     ),
     caption = "Mean penguin variables with `kable` and `kableExtra`",
     align = "c",
@@ -105,8 +111,11 @@ summary_peng %>%
   kable(
     digits = 1,
     col.names = c(
-      "Species", "Bill length",
-      "Bill depth", "Flipper length", "Body mass"
+      "Species",
+      "Bill length",
+      "Bill depth",
+      "Flipper length",
+      "Body mass"
     ),
     caption = "Mean penguin variables with `kable` and `kableExtra` and packed rows",
     align = "c",
@@ -135,8 +144,7 @@ penguin_plot <- ggplot(
 ) +
   geom_histogram(alpha = 0.6) +
   scale_fill_manual(
-    values =
-      c("darkorange", "purple", "cyan4")
+    values = c("darkorange", "purple", "cyan4")
   ) +
   theme_minimal() +
   labs(
