@@ -7,7 +7,7 @@ format:
   revealjs:
     incremental: true
     transition: fade
-    theme: moon
+    theme: rladies_style.scss
     show-slide-number: all
     slide-number: true
     chalkboard:
@@ -24,13 +24,11 @@ execute:
 
 ```{r}
 #| label: setup
-library(palmerpenguins)
 library(tidyverse)
 ```
 
 ::: {.notes}
-I have something very important to say for this penguins
-I should not forget it
+Don't forget to drop this important penguin fact.
 :::
 
 
@@ -68,34 +66,34 @@ In this paper we want to answer the following questions
 #| include: false
 
 # calculate the mean body mass of the penguin species
-adelie_mean <- penguins %>%
-  filter(species == "Adelie") %>%
-  pull(body_mass_g) %>%
+adelie_mean <- penguins |>
+  filter(species == "Adelie") |>
+  pull(body_mass) |>
   mean(na.rm = TRUE)
-chinstrap_mean <- penguins %>%
-  filter(species == "Chinstrap") %>%
-  pull(body_mass_g) %>%
+chinstrap_mean <- penguins |>
+  filter(species == "Chinstrap") |>
+  pull(body_mass) |>
   mean(na.rm = TRUE)
-gentoo_mean <- penguins %>%
-  filter(species == "Gentoo") %>%
-  pull(body_mass_g) %>%
+gentoo_mean <- penguins |>
+  filter(species == "Gentoo") |>
+  pull(body_mass) |>
   mean(na.rm = TRUE)
 ```
 
 :::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="60%"}
 
 The mean weight of
 
-- all penguins: `r round(mean(penguins$body_mass_g, na.rm = TRUE))` g.
+- all penguins: `r round(mean(penguins$body_mass, na.rm = TRUE))` g.
 - *Gentoo* penguins: `r round(gentoo_mean,0)` g
 - *Adelie* penguins of `r round(adelie_mean, 0)` g
 - *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g
 
 :::
 
-::: {.column width="60%"}
+::: {.column width="40%"}
 
 ```{r}
 knitr::include_graphics("images/lter_penguins.png")
@@ -118,7 +116,7 @@ knitr::include_graphics("images/lter_penguins.png")
 #| fig-height: 3
 #| echo: false
 
-ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+ggplot(penguins, aes(x = body_mass, fill = species)) +
   geom_histogram(alpha = 0.6) +
   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
   theme_minimal()
@@ -131,7 +129,7 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 #| echo: true
 #| eval: false
 
-ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+ggplot(penguins, aes(x = body_mass, fill = species)) +
   geom_histogram(alpha = 0.6) +
   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
   theme_minimal()
@@ -149,8 +147,8 @@ ggplot(penguins, aes(x = body_mass_g, fill = species)) +
 ggplot(
   data = penguins,
   aes(
-    x = bill_length_mm,
-    y = bill_depth_mm,
+    x = bill_len,
+    y = bill_dep,
     color = species,
     shape = species
   )
@@ -172,14 +170,14 @@ ggplot(
 ```{r}
 #| label: summary
 #| echo: true
-#| code-line-numbers: "2-3"
-penguins %>%
-  filter(!(is.na(sex))) %>%
-  group_by(species, sex) %>%
+#| code-line-numbers: "1,2"
+penguins |>
+  filter(!(is.na(sex))) |>
   summarize(
-    bill_length = mean(bill_length_mm, na.rm = TRUE),
-    bill_depth = mean(bill_depth_mm, na.rm = TRUE),
-    flipper_length = mean(flipper_length_mm, na.rm = TRUE),
-    body_mass = mean(body_mass_g, na.rm = TRUE)
+    bill_length = mean(bill_len, na.rm = TRUE),
+    bill_depth = mean(bill_dep, na.rm = TRUE),
+    flipper_length = mean(flipper_len, na.rm = TRUE),
+    body_mass = mean(body_mass, na.rm = TRUE),
+    .by = c(species, sex)
   )
 ```

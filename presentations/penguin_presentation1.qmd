@@ -17,7 +17,6 @@ execute:
 
 ```{r}
 #| label: setup
-library(palmerpenguins)
 library(tidyverse)
 ```
 
@@ -57,34 +56,34 @@ In this paper we want to answer the following questions
 #| include: false
 
 # calculate the mean body mass of the penguin species
-adelie_mean <- penguins %>%
-  filter(species == "Adelie") %>%
-  pull(body_mass_g) %>%
+adelie_mean <- penguins |>
+  filter(species == "Adelie") |>
+  pull(body_mass) |>
   mean(na.rm = TRUE)
-chinstrap_mean <- penguins %>%
-  filter(species == "Chinstrap") %>%
-  pull(body_mass_g) %>%
+chinstrap_mean <- penguins |>
+  filter(species == "Chinstrap") |>
+  pull(body_mass) |>
   mean(na.rm = TRUE)
-gentoo_mean <- penguins %>%
-  filter(species == "Gentoo") %>%
-  pull(body_mass_g) %>%
+gentoo_mean <- penguins |>
+  filter(species == "Gentoo") |>
+  pull(body_mass) |>
   mean(na.rm = TRUE)
 ```
 
-:::: {.columns}
+::: {.columns}
 
-::: {.column width="40%"}
+::: {.column width="60%"}
 
 The mean weight of
 
-- all penguins: `r round(mean(penguins$body_mass_g, na.rm = TRUE))` g.
+- all penguins: `r round(mean(penguins$body_mass, na.rm = TRUE))` g.
 - *Gentoo* penguins: `r round(gentoo_mean,0)` g
 - *Adelie* penguins of `r round(adelie_mean, 0)` g
 - *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g
 
 :::
 
-::: {.column width="60%"}
+::: {.column width="40%"}
 
 ```{r}
 knitr::include_graphics("images/lter_penguins.png")
@@ -92,7 +91,7 @@ knitr::include_graphics("images/lter_penguins.png")
 
 :::
 
-::::
+:::
 
 ## A histogram of our penguins
 
@@ -102,9 +101,16 @@ knitr::include_graphics("images/lter_penguins.png")
 #| fig-width: 4
 #| fig-height: 3
 #| echo: true
+#| code-fold: true
+#| code-summary: Show code
 
-ggplot(penguins, aes(x = body_mass_g, fill = species)) +
+ggplot(penguins, aes(x = body_mass, fill = species)) +
   geom_histogram(alpha = 0.6) +
   scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
-  theme_minimal()
+  theme_minimal() +
+  labs(
+    x = "Body mass (g)",
+    y = "Count",
+    fill = "Species"
+  )
 ```
