@@ -36,7 +36,7 @@ We did some plots, calculated some summary statistics and a linear model.
 
 # Results
 
-The mean weight of all penguin species is `r round(mean(penguins$body_mass, na.rm = TRUE), 1)` g.
+The mean weight of all penguin species is `{r} round(mean(penguins$body_mass, na.rm = TRUE), 1)` g.
 
 @fig-histogram below shows that *Gentoo* penguins have the highest body mass.
 

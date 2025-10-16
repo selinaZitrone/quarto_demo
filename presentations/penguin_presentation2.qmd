@@ -86,10 +86,10 @@ gentoo_mean <- penguins |>
 
 The mean weight of
 
-- all penguins: `r round(mean(penguins$body_mass, na.rm = TRUE))` g.
-- *Gentoo* penguins: `r round(gentoo_mean,0)` g
-- *Adelie* penguins of `r round(adelie_mean, 0)` g
-- *Chinstrap* penguins of `r round(chinstrap_mean, 0)` g
+- all penguins: `{r} round(mean(penguins$body_mass, na.rm = TRUE))` g.
+- *Gentoo* penguins: `{r} round(gentoo_mean,0)` g
+- *Adelie* penguins of `{r} round(adelie_mean, 0)` g
+- *Chinstrap* penguins of `{r} round(chinstrap_mean, 0)` g
 
 :::
 

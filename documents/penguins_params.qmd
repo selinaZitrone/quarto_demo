@@ -1,5 +1,5 @@
 ---
-title: "Penguin Species Report: `r params$species`"
+title: "Penguin Species Report: `{r} params$species`"
 author: "Selina Baldauf"
 date: today
 format: pdf
@@ -20,7 +20,7 @@ params:
 library(tidyverse)
 ```
 
-This report analyzes data for *`r params$species`* penguins with body mass between `r params$min_weight`g and `r params$max_weight`g.
+This report analyzes data for *`{r} params$species`* penguins with body mass between `{r} params$min_weight`g and `{r} params$max_weight`g.
 
 ```{r}
 #| label: filter-data
@@ -35,7 +35,7 @@ filtered_penguins <- penguins %>%
 
 ## Summary Statistics
 
-Number of penguins matching criteria: `r nrow(filtered_penguins)`
+Number of penguins matching criteria: `{r} nrow(filtered_penguins)`
 
 ```{r}
 #| label: summary-stats
