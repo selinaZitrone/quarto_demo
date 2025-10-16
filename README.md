@@ -16,6 +16,9 @@ If you want to run all examples, you need the following software and packages:
 install.packages(c("tidyverse", "kableExtra", "plotly", "quarto"))
 ```
 
+Also note that I am using the `penguins` dataset which was only added to
+R relatively recently. So if you get an error message about `penguins` not being found, update your R installation.
+
 ### 🐍 Python Libraries
 
 ```python

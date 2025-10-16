@@ -13,3 +13,4 @@
 # Ignore all Quarto cache files
 *_files/
 *_cache/
+clean_repo.bat
