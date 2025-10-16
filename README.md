@@ -2,6 +2,8 @@
 
 This project contains Quarto examples used in [the lecture](https://selinazitrone.github.io/tools_and_tips/sessions/13_quarto-2.html).
 
+If you use R Studio, make sure to open the entire project by double clicking on the `quarto_demo.Rproj` file.
+
 ---
 
 ## 🛠️ Installation Requirements
@@ -97,4 +99,6 @@ They have really good tutorials for all combinations of programming language, ID
 
 - [Quarto Documentation](https://quarto.org/docs/guide/)
 - [Quarto Gallery](https://quarto.org/docs/gallery/) - Example documents and presentations
+- [Curated List of Quarto resources](https://github.com/mcanouil/awesome-quarto#featured-new-releases)
 - [Quarto Tips & Tricks](https://mine-cetinkaya-rundel.github.io/quarto-tip-a-day/) - Daily quarto tips
+
